@@ -3,7 +3,6 @@
 **Namen:** Upravljanje opomnikov, notifikacij in opozoril (“to-pay alerts”).  
 Storitev je del mikrostoritvene arhitekture in uporablja Supabase PostgreSQL za hranjenje podatkov.
 
-
 ## 🔔 Funkcionalnosti
 
 - ustvarjanje opomnikov (datum + sporočilo)
@@ -12,13 +11,11 @@ Storitev je del mikrostoritvene arhitekture in uporablja Supabase PostgreSQL za 
 - pošiljanje notifikacij (trenutno EMAIL)
 - prikaz, posodabljanje in brisanje uporabnikovih notifikacij
 
-
 ## 🔄 Reminder vs Notification
 
 - **Reminder** → opomnik, ki se sproži v prihodnosti (`remindAt`).
 - **Notification** → dejansko obvestilo, poslano uporabniku (npr. email, UI).
 - Reminder ob zapadlosti pogosto _ustvari_ Notification.
-
 
 ## 🚀 Namestitev in zagon
 
@@ -46,7 +43,6 @@ DATABASE_NAME=postgres
 nest start
 ```
 
-
 ## 📘 Swagger dokumentacija
 
 Ko aplikacija teče, odpri v brskalniku:
@@ -60,3 +56,20 @@ Swagger prikaže:
 - DTO-je z opisi
 - request in response primere
 - strukturo celotnega API-ja
+
+## 🐳 Zagon v Dockerju
+
+### 1. Zgradi Docker image
+
+```bash
+docker build -t notification-service .
+```
+
+2. Zaženi container (z isto .env datoteko)
+
+```bash
+docker run --env-file .env -p 3000:3000 notification-service
+```
+
+Aplikacija bo nato dostopna na:
+👉 http://localhost:3000/api
