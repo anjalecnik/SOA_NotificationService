@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -32,7 +33,7 @@ export class NotificationController {
   @ApiTags('reminders')
   @ApiOperation({ summary: 'Get all reminders for a user' })
   @ApiResponse({ status: 200, description: 'List of reminders returned.' })
-  getRemindersForUser(@Param('userId', ParseIntPipe) userId: string) {
+  getRemindersForUser(@Param('userId', new ParseUUIDPipe()) userId: string) {
     return this.notificationService.findAllRemindersForUser(userId);
   }
 
@@ -95,7 +96,9 @@ export class NotificationController {
   @ApiTags('notifications')
   @ApiOperation({ summary: 'Get notifications for a user' })
   @ApiResponse({ status: 200, description: 'List of notifications returned.' })
-  getNotificationsForUser(@Param('userId', ParseIntPipe) userId: string) {
+  getNotificationsForUser(
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+  ) {
     return this.notificationService.findNotificationsForUser(userId);
   }
 
@@ -142,7 +145,9 @@ export class NotificationController {
   @ApiTags('notifications')
   @ApiOperation({ summary: 'Delete ALL notifications for a user' })
   @ApiResponse({ status: 200, description: 'All notifications deleted.' })
-  deleteNotificationsForUser(@Param('userId', ParseIntPipe) userId: string) {
+  deleteNotificationsForUser(
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+  ) {
     return this.notificationService.removeAllNotificationsForUser(userId);
   }
 }
