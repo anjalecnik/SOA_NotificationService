@@ -33,7 +33,7 @@ export class NotificationService {
     return this.reminderRepo.save(reminder);
   }
 
-  async findAllRemindersForUser(userId: number): Promise<Reminder[]> {
+  async findAllRemindersForUser(userId: string): Promise<Reminder[]> {
     return this.reminderRepo.find({
       where: { userId },
       order: { remindAt: 'ASC' },
@@ -106,7 +106,7 @@ export class NotificationService {
     return saved;
   }
 
-  async findNotificationsForUser(userId: number): Promise<Notification[]> {
+  async findNotificationsForUser(userId: string): Promise<Notification[]> {
     return this.notificationRepo.find({
       where: { userId },
       order: { createdAt: 'DESC' },
@@ -143,7 +143,7 @@ export class NotificationService {
     }
   }
 
-  async removeAllNotificationsForUser(userId: number): Promise<void> {
+  async removeAllNotificationsForUser(userId: string): Promise<void> {
     await this.notificationRepo.delete({ userId });
   }
 }

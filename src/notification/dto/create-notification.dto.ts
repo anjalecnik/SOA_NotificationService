@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
   Min,
 } from 'class-validator';
 import { NotificationChannel } from '../entities/notification.entity';
@@ -11,13 +12,11 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateNotificationDto {
   @ApiProperty({
-    description: 'ID uporabnika, ki prejme obvestilo',
-    example: 1,
-    minimum: 1,
+    description: 'ID uporabnika (UUID) iz Auth/Account servisa',
+    example: '550e8400-e29b-41d4-a716-446655440000',
   })
-  @IsInt()
-  @Min(1)
-  userId: number;
+  @IsUUID()
+  userId: string;
 
   @ApiProperty({
     description: 'Naslov obvestila',

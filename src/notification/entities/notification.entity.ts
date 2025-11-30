@@ -3,11 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum NotificationChannel {
-  EMAIL = 'EMAIL'
+  EMAIL = 'EMAIL',
 }
 
 @Entity()
@@ -15,8 +15,8 @@ export class Notification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userId: number;
+  @Column({ type: 'uuid' })
+  userId: string;
 
   @Column()
   title: string;
@@ -24,7 +24,11 @@ export class Notification {
   @Column()
   body: string;
 
-  @Column({ type: 'enum', enum: NotificationChannel, default: NotificationChannel.EMAIL })
+  @Column({
+    type: 'enum',
+    enum: NotificationChannel,
+    default: NotificationChannel.EMAIL,
+  })
   channel: NotificationChannel;
 
   @Column({ default: false })

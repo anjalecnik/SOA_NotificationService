@@ -3,19 +3,18 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
+  IsUUID,
   Min,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateReminderDto {
   @ApiProperty({
-    description: 'ID uporabnika, za katerega se ustvari opomnik',
-    example: 1,
-    minimum: 1,
+    description: 'ID uporabnika (UUID) iz Auth/Account servisa',
+    example: '550e8400-e29b-41d4-a716-446655440000',
   })
-  @IsInt()
-  @Min(1)
-  userId: number;
+  @IsUUID()
+  userId: string;
 
   @ApiProperty({
     description: 'Besedilo opomnika',

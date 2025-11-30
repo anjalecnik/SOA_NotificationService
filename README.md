@@ -72,4 +72,5 @@ docker run --env-file .env -p 3000:3000 notification-service
 ```
 
 Aplikacija bo nato dostopna na:
+
 👉 http://localhost:3000/api

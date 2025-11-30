@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
 } from 'typeorm';
 import { Notification } from './notification.entity';
 
@@ -14,8 +14,8 @@ export class Reminder {
   id: number;
 
   // referenca na uporabnika iz Auth & Account servisa
-  @Column()
-  userId: number;
+  @Column({ type: 'uuid' })
+  userId: string;
 
   @Column()
   message: string;
