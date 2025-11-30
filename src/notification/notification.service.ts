@@ -25,18 +25,6 @@ export class NotificationService {
   // ---------- REMINDERS ----------
 
   async createReminder(dto: CreateReminderDto): Promise<Reminder> {
-    // primer povezave z drugo mikrostoritvijo (Auth & Account Service)
-    // npr. preveri, če uporabnik obstaja in dobi email
-    const authUrl = process.env.AUTH_SERVICE_URL || 'http://auth-service:3000';
-    try {
-      await firstValueFrom(
-        this.httpService.get(`${authUrl}/users/${dto.userId}`),
-      );
-    } catch (e) {
-      // v nalogi je dovolj že, da kličemo drugo storitev – lahko vrneš napako, če user ne obstaja
-      throw new NotFoundException('User not found in Auth service');
-    }
-
     const reminder = this.reminderRepo.create({
       userId: dto.userId,
       message: dto.message,
