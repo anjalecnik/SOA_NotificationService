@@ -1,10 +1,8 @@
 # 📬 Notification & Reminder Service
 
-**Avtor:** Anja  
 **Namen:** Upravljanje opomnikov, notifikacij in opozoril (“to-pay alerts”).  
 Storitev je del mikrostoritvene arhitekture in uporablja Supabase PostgreSQL za hranjenje podatkov.
 
----
 
 ## 🔔 Funkcionalnosti
 
@@ -14,7 +12,6 @@ Storitev je del mikrostoritvene arhitekture in uporablja Supabase PostgreSQL za 
 - pošiljanje notifikacij (trenutno EMAIL)
 - prikaz, posodabljanje in brisanje uporabnikovih notifikacij
 
----
 
 ## 🔄 Reminder vs Notification
 
@@ -22,7 +19,6 @@ Storitev je del mikrostoritvene arhitekture in uporablja Supabase PostgreSQL za 
 - **Notification** → dejansko obvestilo, poslano uporabniku (npr. email, UI).
 - Reminder ob zapadlosti pogosto _ustvari_ Notification.
 
----
 
 ## 🚀 Namestitev in zagon
 
@@ -50,7 +46,6 @@ DATABASE_NAME=postgres
 nest start
 ```
 
----
 
 ## 📘 Swagger dokumentacija
 
