@@ -7,21 +7,24 @@ export class EmailService {
   private readonly resend = new Resend(process.env.RESEND_API_KEY);
 
   async sendEmail(to: string, subject: string, body: string): Promise<void> {
-    try {
-      await this.resend.emails.send({
-        from: process.env.RESEND_FROM ?? 'noreply@example.com',
-        to,
-        subject,
-        html: body,
-      });
+    const from = 'onboarding@resend.dev';
 
-      this.logger.log(`Email SENT to ${to} (${subject})`);
-    } catch (error: any) {
+    const { data, error } = await this.resend.emails.send({
+      from,
+      to,
+      subject,
+      html: body,
+    });
+
+    if (error) {
       this.logger.error(
-        `Failed to send email to ${to}: ${error.message}`,
-        error,
+        `Failed to send email to ${to}: ${error.message ?? JSON.stringify(error)}`,
       );
       throw error;
     }
+
+    this.logger.log(
+      `Email SENT to ${to} (${subject}) – id: ${data?.id ?? 'no-id'}`,
+    );
   }
 }
