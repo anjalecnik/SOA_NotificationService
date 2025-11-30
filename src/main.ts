@@ -2,9 +2,36 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+function getAllowedOrigins(): string[] {
+  const envOrigins = process.env.CORS_ORIGINS;
+  if (envOrigins) {
+    return envOrigins.split(',').map((origin) => origin.trim());
+  }
+
+  const commonPorts = [3000, 5173, 5174, 8080, 8081];
+  const origins: string[] = [];
+  for (const host of ['localhost', '127.0.0.1']) {
+    for (const port of commonPorts) {
+      origins.push(`http://${host}:${port}`);
+    }
+  }
+  return origins;
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: getAllowedOrigins(),
+    credentials: true,
+    methods: ['*'],
+    allowedHeaders: ['*'],
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
